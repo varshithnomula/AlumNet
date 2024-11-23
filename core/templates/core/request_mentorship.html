@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Mentorship</title>
+    <link rel="stylesheet" href="{% static 'css/request.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Request Mentorship</h1>
+    </header>
+    <section>
+        <form method="POST" action="{% url 'submit_mentorship_request' %}">
+            {% csrf_token %}
+            <label for="mentor">Choose a Mentor:</label>
+            <select id="mentor" name="mentor" required>
+                {% for alumni in alumni_list %}
+                    <option value="{{ alumni.id }}">{{ alumni.full_name }} ({{ alumni.current_job_title }})</option>
+                {% endfor %}
+            </select>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+            <button type="submit">Submit Request</button>
+        </form>
+    </section>
+</body>
+</html>

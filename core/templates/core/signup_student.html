@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>student Signup</title>
+</head>
+<body>
+    <h1>student Signup</h1>
+
+    <!-- Step 1 Form -->
+    <div id="step1" style="display: {% if step == 2 %}none{% else %}block{% endif %}">
+        <form method="POST" action="{% url 'student_signup' %}">
+            {% csrf_token %}
+            {{ form_step1.as_p }}
+            <input type="hidden" name="step" value="1">
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+
+    <!-- Step 2 Form -->
+    <div id="step2" style="display: {% if step == 2 %}block{% else %}none{% endif %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'student_signup' %}">
+            {% csrf_token %}
+            {{ form_step2.as_p }}
+            <input type="hidden" name="step" value="2">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

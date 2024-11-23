@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard-container">
+    <h1>Welcome, {{ alumni.full_name }}</h1>
+
+    <!-- Profile Display -->
+    <div id="profile-display">
+        <h2>Your Profile</h2>
+        {% if alumni.profile_picture %}
+        <img src="{{ alumni.profile_picture.url }}" alt="Profile Picture" width="150" height="150">
+        {% else %}
+        <img src="https://via.placeholder.com/150" alt="Default Profile Picture" width="150" height="150">
+        {% endif %}
+        <p><strong>Email:</strong> {{ alumni.user.email }}</p>
+        <p><strong>Location:</strong> {{ alumni.location }}</p>
+        <p><strong>Current Job:</strong> {{ alumni.current_job_title }} at {{ alumni.current_company }}</p>
+        <p><strong>Mentorship Expertise:</strong> {{ alumni.mentorship_expertise }}</p>
+        <button id="edit-profile-btn" class="btn btn-primary">Edit Profile</button>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div id="edit-profile-form" class="hidden">
+        <h2>Edit Profile</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <button type="submit" name="edit-profile" class="btn btn-success">Save Changes</button>
+            <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Mentorship Requests -->
+    <div>
+        <h2>Mentorship Requests</h2>
+        <ul>
+            {% for request in received_requests %}
+            <li>
+                <p><strong>From:</strong> {{ request.student.full_name }}</p>
+                <p><strong>Message:</strong> {{ request.request_message }}</p>
+                <p><strong>Status:</strong> {{ request.status }}</p>
+            </li>
+            {% empty %}
+            <p>No mentorship requests received yet.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- JavaScript for Toggle Visibility -->
+<script>
+    const editBtn = document.getElementById('edit-profile-btn');
+    const cancelBtn = document.getElementById('cancel-edit-btn');
+    const profileDisplay = document.getElementById('profile-display');
+    const editForm = document.getElementById('edit-profile-form');
+
+    // Show the edit form and hide the profile display when the edit button is clicked
+    editBtn.addEventListener('click', () => {
+        profileDisplay.classList.add('hidden');
+        editForm.classList.remove('hidden');
+    });
+
+    // Hide the edit form and show the profile display when the cancel button is clicked
+    cancelBtn.addEventListener('click', () => {
+        editForm.classList.add('hidden');
+        profileDisplay.classList.remove('hidden');
+    });
+</script>
+{% endblock %}

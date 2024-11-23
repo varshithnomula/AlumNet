@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard-container">
+    <h1>Welcome, {{ student.full_name }}</h1>
+
+    <!-- Profile Display -->
+    <div id="profile-display">
+        <h2>Your Profile</h2>
+        <img src="{{ student.profile_picture.url }}" alt="Profile Picture" width="150" height="150">
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Career Interests:</strong> {{ student.career_interests }}</p>
+        <p><strong>Mentorship Goals:</strong> {{ student.mentorship_goals }}</p>
+        <button id="edit-profile-btn" class="btn btn-primary">Edit Profile</button>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div id="edit-profile-form" class="hidden">
+        <h2>Edit Profile</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <button type="submit" name="edit-profile" class="btn btn-success">Save Changes</button>
+            <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Mentorship Requests -->
+    <div>
+        <h2>Your Mentorship Requests</h2>
+        <ul>
+            {% for request in mentorship_requests %}
+            <li>
+                <p><strong>To:</strong> {{ request.alumni.full_name }}</p>
+                <p><strong>Message:</strong> {{ request.request_message }}</p>
+                <p><strong>Status:</strong> {{ request.status }}</p>
+            </li>
+            {% empty %}
+            <p>No mentorship requests sent yet.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- New Mentorship Request -->
+    <div>
+        <h2>Request Mentorship</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ mentorship_request_form.as_p }}
+            <button type="submit" name="new-mentorship-request" class="btn btn-primary">Submit Request</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const editBtn = document.getElementById('edit-profile-btn');
+    const cancelBtn = document.getElementById('cancel-edit-btn');
+    const profileDisplay = document.getElementById('profile-display');
+    const editForm = document.getElementById('edit-profile-form');
+
+    editBtn.addEventListener('click', () => {
+        profileDisplay.classList.add('hidden');
+        editForm.classList.remove('hidden');
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        editForm.classList.add('hidden');
+        profileDisplay.classList.remove('hidden');
+    });
+</script>
+{% endblock %}

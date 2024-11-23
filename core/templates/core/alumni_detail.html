@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ alumni.full_name }} | LinkedIn Profile</title>
+    <link rel="stylesheet" href="{% static 'css/details.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <!-- Profile Section -->
+            <div class="profile-header">
+                <img src="{{ alumni.profile_picture.url }}" alt="{{ alumni.full_name }}" class="profile-picture">
+                <div class="profile-info">
+                    <h1>{{ alumni.full_name }}</h1>
+                    <h3>{{ alumni.current_job_title }} at {{ alumni.current_company }}</h3>
+                    <p class="industry">{{ alumni.industry }}</p>
+                    <p class="graduation-year">Graduated: {{ alumni.year_of_graduation }}</p>
+                </div>
+            </div>
+            <!-- Details Section -->
+            <div class="profile-details">
+                <div class="profile-section">
+                    <h2>About</h2>
+                    <p>{{ alumni.career_path }}</p>
+                </div>
+                <div class="profile-section">
+                    <h2>Achievements</h2>
+                    <p>{{ alumni.achievements }}</p>
+                </div>
+                <div class="profile-section">
+                    <h2>Mentorship Expertise</h2>
+                    <p>{{ alumni.mentorship_expertise }}</p>
+                </div>
+            </div>
+            <!-- Go Back Button -->
+            <button onclick="window.history.back()">Go Back</button>
+        </div>
+    </div>
+</body>
+</html>

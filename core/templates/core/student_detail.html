@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.full_name }} | Student Profile</title>
+    <link rel="stylesheet" href="{% static 'css/details.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <img src="{{ student.profile_picture.url }}" alt="{{ student.full_name }}" class="profile-picture">
+                <div class="profile-info">
+                    <h1>{{ student.full_name }}</h1>
+                    <h3>Current Year: {{ student.current_year }}</h3>
+                    <p class="course">Course: {{ student.course }}</p>
+                </div>
+            </div>
+            <!-- Details Section -->
+            <div class="profile-details">
+                <div class="profile-section">
+                    <h2>Career Interests</h2>
+                    <p>{{ student.career_interests }}</p>
+                </div>
+                <div class="profile-section">
+                    <h2>Mentorship Goals</h2>
+                    <p>{{ student.mentorship_goals }}</p>
+                </div>
+                <div class="profile-section">
+                    <h2>Preferred Industry</h2>
+                    <p>{{ student.preferred_industry }}</p>
+                </div>
+                <div class="profile-section">
+                    <h2>Preferred Company</h2>
+                    <p>{{ student.preferred_company }}</p>
+                </div>
+            </div>
+            <!-- Go Back Button -->
+            <button onclick="window.history.back()">Go Back</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Information</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+        <section class="profile-info">
+            <h2>Profile Information</h2>
+            <div class="profile-card">
+                <img src="{% static 'images/image.jpeg' %}" alt="Profile Picture" class="profile-pic">
+                <div class="profile-details">
+                    <h3>Varshith Nomula</h3>
+                    <p><strong>Email:</strong> varshithnomula006@gmail.com</p>
+                    <p><strong>Current Position:</strong> Senior Software Engineer</p>
+                    <p><strong>Company:</strong> Tech Corp</p>
+                    <p><strong>Industry:</strong> Technology</p>
+                    <a href="www.linkedin.com/in/varshith-nomula-48542528b" class="profile-link">View Linkedln Profile</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="mentorship-requests">
+            <h2>Mentorship Requests</h2>
+            <div class="request-card">
+                <h3>Max</h3>
+                <p>Looking for guidance in data science career path and interview preparation</p>
+                <div class="actions">
+                    <button class="accept">✔</button>
+                    <button class="reject">✖</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

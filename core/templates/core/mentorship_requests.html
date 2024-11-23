@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Mentorship Requests</title>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Mentorship Requests Overview</h1>
+    </header>
+    <section>
+        {% if mentorship_requests %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Mentor</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in mentorship_requests %}
+                        <tr>
+                            <td>{{ request.student.full_name }}</td>
+                            <td>{{ request.alumni.full_name }}</td>
+                            <td>{{ request.message }}</td>
+                            <td>{{ request.get_status_display }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'change_request_status' request.id %}">
+                                    {% csrf_token %}
+                                    <select name="status">
+                                        <option value="Accepted">Accept</option>
+                                        <option value="Rejected">Reject</option>
+                                    </select>
+                                    <button type="submit">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No mentorship requests found.</p>
+        {% endif %}
+    </section>
+</body>
+</html>

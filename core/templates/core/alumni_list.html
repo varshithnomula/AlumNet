@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alumni Profiles</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">Back to Welcome Page</a> <!-- Link to go back -->
+    
+    <h2>Alumni Profiles</h2>
+    <ul>
+        {% for alum in alumni %}
+            <li>
+                <a href="{% url 'alumni_detail' alum.id %}">{{ alum.full_name }}</a> - 
+                {{ alum.current_job_title }} at {{ alum.current_company }}
+            </li>
+        {% empty %}
+            <li>No alumni profiles available.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'alumni_signup' %}">Sign Up as a New Alumni</a>
+</body>
+</html>

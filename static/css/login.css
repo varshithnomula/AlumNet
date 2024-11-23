@@ -1,0 +1,123 @@
+/* Reset styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Background styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+}
+
+/* Login container styling */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Login box styling */
+.login-box {
+    background-color: white;
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon styling */
+.icon {
+    display: flex;
+    justify-content: center; /* Center the icon horizontally */
+    align-items: center;     /* Center the icon vertically */
+    margin-bottom: 20px;
+    width: 100%;             /* Use full width to center it */
+}
+
+/* Image styling */
+.icon img {
+    width: 100px;             /* Adjust size as necessary */
+    height: 100px;            /* Maintain aspect ratio */
+    border-radius: 50%;      /* Make it circular (optional) */
+    background: rgb(255, 255, 255); /* Optional: adds a slight background to blend with the page */
+    padding: 5px;            /* Optional: space around the image */
+    box-shadow: 0 2px 4px rgb(255, 255, 255); /* Optional: shadow for better visibility */
+}
+
+
+/* Header styling */
+h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+p {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* Input group styling */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Button styling */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #6a11cb;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #2575fc;
+}
+
+/* Signup text styling */
+.signup-text {
+    margin-top: 20px;
+    color: #777;
+}
+
+.signup-text a {
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+/* Message styling */
+.message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
