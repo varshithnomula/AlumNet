@@ -4,37 +4,26 @@ from .models import Alumni, Student, MentorshipRequest
 from .forms import AlumniFormStep1, AlumniFormStep2, StudentFormStep1, StudentFormStep2, MentorshipRequestForm ,AlumniProfileForm ,StudentProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
-from .models import Alumni, Student
 
 def login_view(request):
     if request.method == 'POST':
-        
-        email = request.POST.get('email').lower().strip()
+        email = request.POST.get('email').lower().strip()  # Normalize the email
         password = request.POST.get('password')
 
-        user = None
-        try:
-            user = Alumni.objects.filter(email=email).first() or Student.objects.filter(email=email).first()
-        except Exception:
-            pass
-        
-        if user:
-            request.session['user_id'] = user.id
-            if isinstance(user, Alumni):
-                request.session['is_alumni'] = True
-            elif isinstance(user, Student):
-                request.session['is_student'] = True
-        else:
-            request.session['user_id'] = -1
-            request.session['is_alumni'] = False
-            request.session['is_student'] = False
+        # Attempt to find the user in Alumni or Student models
+        user = Alumni.objects.filter(email=email).first() or Student.objects.filter(email=email).first()
 
-        # Redirect to dashboard.html
-        return render(request,'core/dashboard.html')
+        if user and user.password == password:  # Compare plain text passwords
+            # Save user ID and type in session
+            request.session['user_id'] = user.id
+            request.session['is_alumni'] = isinstance(user, Alumni)
+            request.session['is_student'] = isinstance(user, Student)
+            return redirect('dashboard')  # Redirect to the dashboard view
+        else:
+            messages.error(request, "Invalid email or password!")
 
     return render(request, 'core/login.html')
+
 
 @login_required
 def dashboard(request):
@@ -46,9 +35,13 @@ def dashboard(request):
 
     
 def logout_view(request):
-    logout(request)
-    messages.success(request, "You have successfully logged out.")
-    return redirect('home')
+    if request.user.is_authenticated:
+        logout(request)  # Log the user out
+        messages.success(request, "You have successfully logged out.")
+    else:
+        messages.info(request, "You were not logged in.")
+    return redirect('login')  # Redirect to login page
+
 
 @login_required
 def alumni_dashboard(request):
